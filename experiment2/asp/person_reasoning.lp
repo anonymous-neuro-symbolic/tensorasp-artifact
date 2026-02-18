@@ -23,8 +23,13 @@ empty_scene :-
 % Higher-level semantic labels
 % ================================
 
+% crowded :-
+%    group_scene.
+
 crowded :-
-    group_scene.
+    group_scene,
+    strong_collective_presence.
+
 
 normal_activity :-
     single_person_scene.
@@ -34,3 +39,21 @@ normal_activity :-
 % ================================
 
 :- crowded, normal_activity.
+
+
+% ========================
+% Border line rules----> for the ablation test!!
+% ========================
+
+uncertain_group :-
+    person_detected,
+    multiple_people,
+    not strong_evidence.
+
+strong_evidence :-
+    aggregated_confidence_high.
+
+group_scene :-
+    multiple_people,
+    strong_evidence.
+
